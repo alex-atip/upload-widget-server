@@ -1,11 +1,16 @@
 import { env } from "../../env.js";
 import { fastify } from "fastify";
 import { fastifyCors } from "@fastify/cors";
+import fastifyMultipart from "@fastify/multipart";
+import fastifySwagger from "@fastify/swagger";
+import fastifySwaggerUi from "@fastify/swagger-ui";
 import {
   hasZodFastifySchemaValidationErrors,
   serializerCompiler,
   validatorCompiler,
+  jsonSchemaTransform,
 } from "fastify-type-provider-zod";
+import { uploadImageRoute } from "./routes/upload-image.js";
 
 const server = fastify();
 
@@ -26,6 +31,25 @@ server.setErrorHandler((error, request, reply) => {
 });
 
 server.register(fastifyCors, { origin: "*" });
+
+// Configuração do Swagger
+server.register(fastifyMultipart);
+server.register(fastifySwagger, {
+  openapi: {
+    info: {
+      title: "Upload Server",
+      version: "1.0.0",
+    },
+  },
+  transform: jsonSchemaTransform,
+});
+
+server.register(fastifySwaggerUi, {
+  routePrefix: "/docs",
+});
+
+// Registrar rotas
+server.register(uploadImageRoute);
 
 console.log(env.DATABASE_URL);
 
