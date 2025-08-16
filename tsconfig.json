@@ -1,28 +1,17 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "display": "Node 22",
+  "_version": "22.0.0",
+
   "compilerOptions": {
-    "rootDir": "./src",
-    "outDir": "./dist",
+    "lib": ["es2023"],
     "module": "ESNext",
-    "target": "ES2022",
+    "target": "ESNext",
 
-    "moduleResolution": "bundler",
-    "types": ["node"],
-    "lib": ["ES2023"],
-
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": true,
-    "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
-    
-    "moduleDetection": "force",
-    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "bundler",
 
     "paths": {
       "@/*": ["./src/*"]
